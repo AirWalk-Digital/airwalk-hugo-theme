@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  
+  <!-- <head>
+    <title>{{ .Title }}</title>
+    <link rel="canonical" href="{{ .Permalink }}" />
+    <link rel="stylesheet" href="/css/print.css" />
+
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+  </head> -->
+<head>
+
+</head>
+<body>
+  <!-- {{ $baseurl := .Site.BaseURL }}
+  <span class="b">/ </span>
+  <a
+    href="{{ .Site.BaseURL  }}"
+    class="b bb bw1 pb1 no-underline black"
+    >{{ .Site.Title }}</a
+  > -->
+
+  <!-- <article id="chapter">
+      <h2 id="chapter-title">{{ .Title }}</h2>
+    </article> -->
+
+  <section id="main" class="mt5">
+      <!-- <h1 itemprop="name" id="title">{{ .Title }}</h1> -->
+  
+      <article itemprop="articleBody" id="content" class="w-90 lh-copy">
+        {{ $img := "<img src=\"" }}
+        {{ range .Resources}}
+          <!-- {{ .RelPermalink}} -->
+        {{ end }}
+        {{ $path:= .Dir}}
+        {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
+        {{ replace .Content $img $dstimg | safeHTML }}
+      </article>
+    </section>
+
+
+  {{ partial "footer.html" . }}
+  </body>
+</html>

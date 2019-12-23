@@ -1,0 +1,19 @@
+{{ partial "header.html" . }}
+
+
+<h1>Customers</h1>
+
+
+		  {{ range .Sections }}
+	  
+			<a href={{ .RelPermalink }} >
+			  {{ if .Params.logo }}<div style="display:inline-block;"><img width=50px; alt="{{ .Title }} logo" src="{{ .Permalink }}/{{ .Params.logo }}" /></div> {{ end }}
+			  <div style="display:inline-block;"><h4>{{ .Title }}</h4></div>
+			</a><br>
+		  
+		
+		{{end}}
+
+
+
+{{ partial "footer.html" . }}

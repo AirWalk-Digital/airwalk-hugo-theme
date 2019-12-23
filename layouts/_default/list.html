@@ -1,0 +1,38 @@
+{{ partial "header.html" . }}
+
+{{ $img := "<img src=\"" }}
+        <!-- {{ range .Resources}}
+          {{ .RelPermalink}}
+        {{ end }} -->
+        {{ $path:= .Dir}}
+        {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
+        {{ replace .Content $img $dstimg | safeHTML }}
+
+        <!-- sub content banners -->
+
+        <div class="masonry">
+          {{ range .Sections }}
+          {{ if isset .Params "background" }}
+          {{ if fileExists (printf "static%s" .Params.Background) }}
+                <figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}><a href={{.Permalink}}><img src="{{.Params.Background}}" class="masonry-img" ></a></figure>
+              {{else}}
+                <a href={{.Permalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}></figure></a>
+              {{end}}
+            {{ else }}
+              <a href={{.Permalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}></figure></a>
+            {{ end }}
+          {{ end }}
+          {{ range .Pages }}
+          <!-- <a href={{.Permalink}}><figure class="masonry-brick masonry-brick--h" alt="{{.Title}}(page)"><img src="{{.Params.Background}}" class="masonry-img" ></figure></a> -->
+          {{ end }}
+          </div>
+        <!-- - -->
+
+<footer class=" footline" >
+	{{with .Params.LastModifierDisplayName}}
+	    <i class='fas fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{with $.Date}} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
+	    </div>
+	{{end}}
+</footer>
+
+{{ partial "footer.html" . }}

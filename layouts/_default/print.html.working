@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html
+  class=""
+  lang="{{ .Site.LanguageCode }}"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <title>{{ .Title }}</title>
+    <link rel="canonical" href="{{ .Permalink }}" />
+    <link rel="stylesheet" href="/css/print.css" />
+
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+    
+  </head>
+  <body
+  lang="{{ .Site.LanguageCode }}"
+  class="sans-serif w-90 w-60-ns center center-ns mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+<div class="pdfshow">  {{ partial "pdf_title.html" . }}</div>
+
+<article id="contents">
+<h2>Contents</h2>
+{{ with .Site.GetPage "/customer/introduction" }}<h3>Introduction</h3>{{ end }}
+
+{{/* 
+{{ range where .Site.Pages "Section" "detail"}}
+    {{ if eq .Kind "section"}}
+        {{ $section := urlize .Title}}
+        {{ if isset $.Site.Data.customer.documentation.architecture $section }}
+            {{ $subpage := false}}
+            {{ range .Pages }}
+                <!-- Check there are sub pages of the chapter     -->
+                {{ $page := urlize .Title}}
+                {{ if isset (index $.Site.Data.customer.documentation.architecture (printf $section)) $page }}
+                    {{ $subpage = true}}
+                {{ end }}
+            {{ end }}
+            {{ if $subpage }}
+                <h3>{{ .Title }}</h3>
+            {{ end }}
+            {{ range .Pages }}
+                {{ $page := urlize .Title}}
+                {{ if isset (index $.Site.Data.customer.documentation.architecture (printf $section)) $page }}
+                    <h5>{{ .Title }}</h5>
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{end}}
+{{ end }}
+*/}}
+
+
+{{ range where .Site.Pages "Section" "detail"}}
+    {{ if eq .Kind "section"}}
+        {{ $section := urlize .Title}}
+        {{ if isset $.Site.Data.customer.documentation.architecture $section }}
+            {{ $subpage := false}}
+            {{ range .Pages }}
+                <!-- Check there are sub pages of the chapter     -->
+                {{ $page := urlize .Title}}
+                {{ if eq (printf "%s.%s.%s" "$.Site.Data.customer.documentation.architecture" $section $page) true }}
+                    {{ $subpage = true}}
+                {{ end }}
+            {{ end }}
+            {{ if $subpage }}
+                <h3>{{ .Title }}</h3>
+            {{ end }}
+            {{ range .Pages }}
+                {{ $page := urlize .Title}}
+                {{ if eq (printf "%s.%s.%s" "$.Site.Data.customer.documentation.architecture" $section $page) true }}
+                    <h5>{{ .Title }}</h5>
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{end}}
+{{ end }}
+
+
+</article>
+
+<!-- Introduction     -->
+{{ with .Site.GetPage "/customer/introduction" }}<article id="introduction"></article><h1>Introduction</h1>{{ .Content }}</article>{{ end }}
+
+
+{{range where .Site.Pages "Section" "detail" }} 
+
+<!-- <h4>{{ . }}</h4> -->
+
+
+{{ end }}
+
+{{ range where .Site.Pages "Section" .Section}}
+    {{ if and (index .Site.Data.customer (urlize .Title)) .IsNode }}
+        {{$chapter := .Title}}
+        <p>{{ .Title }}</p>
+        {{ range .Pages }}
+        <li>{{ .Title }}</li>
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+
+<div hidden>
+{{$section := .Section}}
+{{ $toplevel := where .Site.RegularPages "Section" $section }}
+{{ $designs := .Site.Params.designs }}
+{{ range $toplevel}}
+{{ $lowertitle := urlize .Title  }}
+{{ $designs_filtered := in .Site.Params.designs $lowertitle}}
+<br> designs_filtered: {{ $lowertitle }} / {{ $designs_filtered }} 
+<br>{{ .Site.Params.designs }}</br>
+<br>TF: {{ index .Site.Params.designs $lowertitle }} </br>
+{{ if index .Site.Params.designs $lowertitle}}
+<br>range : {{ .Title }}</br>
+{{ end }}
+{{ end }}
+{{ $designs_filtered := in .Site.Params.designs .Title}}
+{{/* $v2 := where .Site.Pages "designs" in .Title */}}
+{{/* $filtered := $v1 | intersect $v2 */}}
+
+<br> toplevel: {{ $toplevel }} 
+<br> v2: {{/* $v2 */}} 
+<br> designs: {{ $designs }} 
+<br> designs_filtered: {{ $designs_filtered }} 
+
+
+{{/* range $filtered */}}
+<li>{{.Title}}</li>
+{{/* end */}}
+
+
+  <!-- {{ partial "pdf_title.html" . }} -->
+  <h1>Contents</h1>
+  {{$section := .Section}}
+  {{range where .Site.Pages "Section" $section}}
+  <li>{{.Title}} / {{ .IsNode }}</li>
+  {{ end }}
+
+<h3>Contents</h3>
+
+{{ range where .Site.Pages "Section" "detail" }}
+  <p>{{ .Title }}</p>
+{{ end }}
+
+
+{{range .Site.Home.Pages.ByWeight}}
+
+{{if .IsSection }}
+
+<p>{{.Title}}</p>
+{{ end }}
+{{ end }}
+</div>
+<!-- {{range .Site.Home.Sections.ByWeight}}
+    {{if .Param "publishing.print" }}
+        <h4>{{.Title}}</h4>
+        {{ range .Pages.ByWeight }}
+            {{if and .Params.Print (not .Params.Hidden)}}
+                {{.Title}}<br>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }} -->
+
+<!-- {{range .Site.Home.Sections.ByWeight}}
+    {{if and .IsSection .Params.Print (not .Params.Hidden)}}
+        <h4>{{.Title}}</h4>
+        {{ range .Pages.ByWeight }}
+            {{if and .Params.Print (not .Params.Hidden)}}
+                {{.Title}}<br>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }} -->
+<!-- 
+{{range .Site.Home.Sections.ByWeight}}
+    {{if and .IsSection .Params.Print (not .Params.Hidden)}}
+        <hr>
+        <h2>{{.Title}}</h2>
+        {{.Content}}
+        {{ range .Pages.ByWeight }}
+            {{if and .Params.Print (not .Params.Hidden)}}
+                <h3>{{.Title}}</h3>
+                {{.Content}}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }} -->
+
+
+<!-- Content -->
+
+{{ range where .Site.Pages "Section" "detail"}}
+    {{ if eq .Kind "section"}}
+        {{ $section := urlize .Title}}
+        {{ $chapter := .Title}}
+        {{ if isset $.Site.Data.customer.documentation.architecture $section }}
+            {{ range .Pages }}
+                {{ $page := urlize .Title}}
+                {{ if isset (index $.Site.Data.customer.documentation.architecture (printf $section)) $page }}
+                       <!-- Chapter heading -->
+                    <div class="pdfshow">
+                        <article id="chapter">
+                            <h2 id="chapter-title">{{ $chapter }}</h2>
+                            <br>
+                            <h2 id="chapter-title">{{ .Title }}</h2>
+                        </article>
+                    </div>  
+
+
+                    <!-- This is the common design document -->
+                    <section id="main" class="mt5">        
+                        <article itemprop="articleBody" id="content" class="w-90 lh-copy">
+                        {{ .Render "single_print" }}
+                        </article>
+                    </section>
+
+                    <!-- This is the customer detail (deisgn and impementation)-->
+                    {{ $workstream := printf "%s/%s" ($section) (urlize .Title) }}
+                    {{ range where .Site.Pages "Dir" "customer/"}}
+                        {{ if eq $workstream .Params.workstream}}
+                            <section id="main" class="mt5">        
+                                <article itemprop="articleBody" id="content" class="w-90 lh-copy">
+                                    <h1 id="{{printf "%s-%s" $workstream .Title }}">{{ .Title }}</h1>
+                                    {{ .Render "single_print" }}
+                                </article>
+                            </section>        
+                        {{ end }}
+                    {{ end }}
+                    
+
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{end}}
+{{ end }}
+
+
+{{ range where .Site.Pages "Section" .Section}}
+    {{ if and (index .Site.Params.designs (urlize .Title)) .IsNode }}
+        {{$chapter := .Title}}
+        {{ range .Pages }}
+    
+
+
+
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+{{ partial "footer.html" . }}

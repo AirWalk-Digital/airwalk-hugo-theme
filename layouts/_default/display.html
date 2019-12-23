@@ -1,0 +1,33 @@
+{{ partial "header.html" . }}
+
+{{ .Content }}
+
+		<div class="feature-banner">
+		  {{ range .Sections }}
+	  
+			<a href={{ .RelPermalink }} ><div class="feature">
+			  {{ if .Params.icon }}<div class="feature-image"><img alt="{{ .Title }} logo" src="{{ $.Site.BaseURL }}{{ .Params.icon }}" /></div> {{ end }}
+			  <div class="feature-title"><h2>{{ .Title }}</h2></div>
+			</div></a>
+		  {{end}}
+		</div>
+	
+		<div class="feature-banner">
+				{{ range .Pages }}
+			
+				  <a href={{ .RelPermalink }} ><div class="feature">
+					{{ if .Params.icon }}<div class="feature-image"><img alt="{{ .Title }} logo" src="{{ $.Site.BaseURL }}{{ .Params.icon }}" /></div> {{ end }}
+					<div class="feature-title"><h3>{{ .Title }}</h3></div>
+				  </div></a>
+				{{end}}
+			  </div>
+
+<footer class=" footline" >
+	{{with .Params.LastModifierDisplayName}}
+	    <i class='fas fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{with $.Date}} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
+	    </div>
+	{{end}}
+</footer>
+
+
+{{ partial "footer.html" . }}

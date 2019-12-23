@@ -1,0 +1,24 @@
+{{ partial "header.html" . }}
+
+<h1>{{ .Title }} </h1>
+
+
+<h3>Design Documents</h3>
+{{- $pathURL := .Permalink -}}
+<table>
+	<th>Type</th>
+    <th>Name</th>
+{{ range .Resources.ByType "pdf" }}
+    <tr>
+		<td>{{ .ResourceType }}</td>
+        <td><a href="{{ $pathURL }}{{ .Name | relURL }}" target="_blank"> {{ .Name }}</a></td>
+    </tr>
+{{ end }}
+</table>
+
+{{ .Content }}
+
+
+
+
+{{ partial "footer.html" . }}

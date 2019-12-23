@@ -1,0 +1,30 @@
+
+{{ partial "header_print.html" . }}
+<h3>Contents</h3>
+{{range .Site.Home.Sections.ByWeight}}
+    {{if and .IsSection .Params.Print (not .Params.Hidden)}}
+        <h4>{{.Title}}</h4>
+        {{ range .Pages.ByWeight }}
+            {{if and .Params.Print (not .Params.Hidden)}}
+                {{.Title}}<br>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{range .Site.Home.Sections.ByWeight}}
+    {{if and .IsSection .Params.Print (not .Params.Hidden)}}
+        <hr>
+        <h2>{{.Title}}</h2>
+        {{.Content}}
+        {{ range .Pages.ByWeight }}
+            {{if and .Params.Print (not .Params.Hidden)}}
+                <h3>{{.Title}}</h3>
+                {{.Content}}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+{{ partial "footer.html" . }}

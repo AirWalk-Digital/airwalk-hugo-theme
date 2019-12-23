@@ -1,0 +1,168 @@
+ /* FOR TESTING */
+ 
+//  .dropdown-content#cloud {
+//   display: block;
+// }
+
+
+/* topbar container */
+.topbar {
+    overflow: hidden;
+    background-color: #002b3d;
+    height: 50px;
+    // position: fixed;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  /* Links inside the topbar */
+  .topbar a, .topbar .profile{
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    position: relative;
+    text-decoration: none;
+  }
+  .topbar .profile{
+    float: right;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    position: relative;
+    text-decoration: none;
+  }
+  .topbar a:hover {
+    color: white;
+  }
+  
+  /* The dropdown container */
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+  
+  /* Dropdown button */
+  .dropdown .dropbtn {
+    font-size: 16px; 
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+    height: 50px;
+  }
+  
+  /* Add a red background color to topbar links on hover */
+  // .topbar a:hover, .dropdown:hover .dropbtn {
+  // background-color: red;
+  // }
+  .topbar a:hover:after, .dropbtn:hover:after, .topbar .profile:hover:after{
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  .topbar a#logo:after{
+    content: "";
+    // position: absolute;
+    display: block;
+    width: 100%;
+    height: 0px;
+    bottom: 0;
+    left: 0;
+    background-color: #4AC7F0;
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  .topbar a:after, .dropbtn:after, .topbar .profile:after {
+    content: "";
+    // position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #4AC7F0;
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+  
+  /* Dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    left: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+  }
+  
+  /* Mega Menu header, if needed */
+  .dropdown-content .header {
+    background: #EDF7F9;
+    // padding: 16px;
+    color: white;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Create three equal columns that floats next to each other */
+  .topbar-column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    // height: 250px;
+    
+  }
+  
+  .topbar-column h3{
+    margin: 0px;
+    margin-bottom: 20px;
+    color: #002b3d !important;
+  }  
+  .topbar-column#cloud {
+    width: 50%;
+  }
+
+  /* Style links inside the columns */
+  .topbar-column a {
+    float: none;
+    color: black;
+    padding: 1px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    width: fit-content;
+  }
+  
+  /* Add a background color on hover */
+  // .topbar-column a:hover {
+  //   background-color: #ddd;
+  // }
+  
+  .topbar-row {
+    padding: 20px;
+    background-color: #ccc;
+    z-index: 100;
+  }
+  /* Clear floats after the columns */
+  .topbar-row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
