@@ -3,11 +3,14 @@
 
 <!-- Replace the image path and display the content -->
 
+{{ .Content }}
+
+<!-- Old code to sort out image locations ---
 {{ $img := "<img src=\"" }}
         {{ $path:= .Dir}}
-        {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
+		{{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
         {{ replace .Content $img $dstimg | safeHTML }}
-
+-->
 <!-- End of content -->
 
 

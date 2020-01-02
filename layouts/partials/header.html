@@ -94,11 +94,11 @@
             </div>
             {{ end }}
 
-        {{ if or .Params.chapter ( gt (len .Content) 80)}}
+        {{ if or .Params.chapter ( gt (len .Content) 180)}}
           <div id="chapter">
         {{ end }}
         <div id="body-inner">
-          {{if and (not .IsHome) (gt (len .Content) 80)}}
+          {{if and (not .IsHome) (gt (len .Content) 180) (not .Params.notitle)}}
             <h1>{{.Title}}</h1>
           {{end}}
 

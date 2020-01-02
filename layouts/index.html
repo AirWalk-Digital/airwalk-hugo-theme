@@ -13,47 +13,20 @@
 		</div>
 </div> -->
 
-
-<div class="banner-title"><h1>Business transformation through technology</h1></div>
+<div class="banner-title"><h1>{{ $.Site.Data.home.intro }}</h1></div>
 <div class="intro-banner">
-		
-	<div class="intro-pillar">
-		<div id="pillar-head" >Assess</div>
-		<img id="pillar-img" src="icons/assess.png" >
-		<div id="pillar-text">
-				Understanding <b>where you are, your ambitions</b> for change, and <b>setting the direction</b> for your transformation
-		</div>
+
+{{ range $.Site.Data.home.pillars }}
+
+<div class="intro-pillar">
+	<div id="pillar-head" >{{ .name }}</div>
+	<img id="pillar-img" src={{ .icon }} >
+	<div id="pillar-text">
+			{{ .text | markdownify }}
 	</div>
-	<div class="intro-pillar">
-		<div id="pillar-head" >Design</div>
-		<img id="pillar-img" src="icons/design.png" >
-		<div id="pillar-text">
-			Defining the <b>path for change</b>, the <b>structure for delivery</b>, and the <b>optimal design for the technology</b> that will deliver your objectives
-			
-		</div>
-	</div>
-	<div class="intro-pillar">
-		<div id="pillar-head" >Build</div>
-		<img id="pillar-img" src="icons/build.png" >
-		<div id="pillar-text">
-			The <b>execution phase</b>, delivering tangible technical and programmatic outcomes, from <b>MVP to live</b> products			
-		</div>
-	</div>	
-	<div class="intro-pillar">
-		<div id="pillar-head" >Migrate</div>
-		<img id="pillar-img" src="icons/migrate.png" >
-		<div id="pillar-text">
-			Taking <b>both technology and people forward</b>, moving your business from old to new, <b>realising the benefits</b> of your transformation
-		</div>
-	</div>	
-	<div class="intro-pillar">
-		<div id="pillar-head" >Optimise</div>
-		<img id="pillar-img" src="icons/optimise.png" >
-		<div id="pillar-text">
-			<b>Building new norms</b>, ensuring change is lasting and across the whole organisation, ensuring we <b>leave you stronger than we found you</b>
-		</div>
-	</div>	
 </div>
+
+{{ end }}
 
 
 <!-- end html content -->

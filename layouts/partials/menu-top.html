@@ -3,71 +3,11 @@
     <a id="logo" href="/">
       <img src="/logo.svg" height="20px"/>
     </a>
+
+    {{ range .Site.Menus.main.ByWeight }}
+    <a href="{{ .URL }}">{{ .Name }}</a>  
+    {{end }}
      
-    <a href="#Consulting">Consulting</a>
-    <a href="#PCD">Programme Delivery</a>
-    <a href="#PCD">Cloud</a>
-
-    <!-- <div class="dropdown">
-      <button class="dropbtn">Cloud 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content" id="cloud">
-        <div class="header">
-        </div> 
-        <div class="topbar-row">
-          <div class="topbar-column" id="cloud">
-            <h3>Services</h3>
-            {{ range where .Site.Pages "Section" "services"}}
-            <a href="{{.URL | absLangURL }}">{{safeHTML .Name}}</a>
-            {{ end }}
-            
-          </div>
-          <div class="topbar-column" id="cloud">
-            <h3>Solutions</h3>
-            {{ range where .Site.Pages "Section" "solutions"}}
-            <a href="{{.URL | absLangURL }}">{{safeHTML .Name}}</a>
-            {{ end }}
-          </div>
-          
-        </div>
-      </div>
-    </div>  -->
-    <a href="#news">Join Us</a>
-    <a href="#news">About Us</a>
-    <a href="/private.html">Documentation</a>
-    <!-- <div class="dropdown">
-        <button class="dropbtn">Docs 
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-          <div class="header">
-            <h2>Mega Menu</h2>
-          </div> 
-          <div class="topbar-row">
-            <div class="topbar-column">
-              <h3>Category 1</h3>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-            </div>
-            <div class="topbar-column">
-              <h3>Category 2</h3>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-            </div>
-            <div class="topbar-column">
-              <h3>Category 3</h3>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-            </div>
-          </div>
-        </div>
-      </div>  -->
- 
-
     <div class=profile>
       <!-- add logged in user info here -->
     </div>
