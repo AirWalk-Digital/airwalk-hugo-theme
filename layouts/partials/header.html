@@ -53,6 +53,7 @@
     <section id="body">
         <div id="overlay"></div>
         <div class="padding highlightable">
+              {{ if .Content }}
               {{if and (not .IsHome) ( gt (len .Content) 80)}}
               <div>
                 <div id="top-bar">
@@ -93,13 +94,17 @@
               </div>
             </div>
             {{ end }}
-
+            {{ end }}
+        {{ if .Content }}
         {{ if or .Params.chapter ( gt (len .Content) 180)}}
           <div id="chapter">
         {{ end }}
+        {{ end }}
         <div id="body-inner">
+          {{ if .Content }}
           {{if and (not .IsHome) (gt (len .Content) 180) (not .Params.notitle)}}
             <h1>{{.Title}}</h1>
+          {{end}}
           {{end}}
 
         {{define "breadcrumb"}}

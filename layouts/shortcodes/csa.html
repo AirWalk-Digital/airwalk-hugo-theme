@@ -1,0 +1,86 @@
+
+<h2>Control Summary</h2>
+{{- $section := .Page.Params.compliance }}
+<table>
+    <thead>
+        <tr>
+        <th>Control Domain</th>
+        <th>Control ID</th>
+        <th>Control Specification</th>
+        </tr>
+        </thead>
+        <tbody>
+{{ range .Site.Data.csa.controls }}
+    {{ if (in .ControlID ($section) )}}
+            <tr>
+                <td>{{.ControlDomain}}</td>
+                <td align="right">{{.ControlID}}</td>
+                <td align="left">{{.ControlSpecification | markdownify}}</td>
+            </tr>
+    {{ end }}
+{{ end }}
+
+</tbody>
+</table>
+
+
+{{ $control := (printf "%s.%s" ".Site.Data.compliance" (.Page.Params.compliance | lower) ) }}
+<h2>Technical Controls</h2>
+<!-- Azure -->
+{{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "azure") }}
+<h3>Azure</h3>
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure")}}
+{{ end }}
+
+<!-- AWS -->
+{{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "aws") }}
+<h3>AWS</h3>
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "aws")}}
+{{ end }}
+
+<!-- GCP -->
+{{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "gcp") }}
+<h3>GCP</h3>
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "gcp")}}
+{{ end }}
+
+<!-- Private Cloud-->
+{{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "private") }}
+<h3>Private Cloud</h3>
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "private")}}
+{{ end }}
+
+<!-- ALL -->
+{{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "all") }}
+<h3>Common Controls</h3>
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "all")}}
+{{ end }}
+
+{{ define "technical_controls" }}
+
+<table>
+    <thead>
+        <tr>
+        <th>Control ID</th>
+        <th>Service</th>
+        <th>Control</th>
+        <th>Applied</th>
+        <th>Issues</th>
+        </tr>
+        </thead>
+        <tbody>
+            {{ range .section }}
+            <tr>
+                <td>{{.name}}</td>
+                <td>{{.service}}</td>
+                <td>{{.control}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {{ end }}
+
+</tbody>
+</table>
+
+{{end}}
+

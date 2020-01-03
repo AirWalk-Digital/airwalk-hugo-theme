@@ -344,3 +344,7 @@ div.notices.tip p {
 div.notices.tip p:first-child:after {
     content: 'Tip';
 }
+
+table li {
+    margin-left: 10px;
+}
