@@ -45,7 +45,12 @@
   </head>
   <body class="" data-url="{{ .RelPermalink }}">
     <!-- {{ cond (eq .Section "private") (partial "menu.html" .) "" }} -->
-    {{ partial "menu.html" . }}
+
+    {{ if .Site.Params.contentPrefix }}
+      {{ cond (eq .Section "private") (partial "menu-private.html" .) "" }}
+    {{ else }}
+      {{ partial "menu.html" . }}
+    {{ end }}
 
     {{ partial "menu-top.html" . }}
 

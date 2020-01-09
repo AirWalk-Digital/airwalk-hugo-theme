@@ -1,2 +1,7 @@
-{{$file := .Get 0}}
-{{ $file | readFile | replaceRE "^---(.|\n)*?---\n" "$1" | markdownify }}
+{{ if .Site.Params.contentPrefix }}
+    {{ $file := (printf "%s%s" .Site.Params.contentPrefix (.Get 0)) }}
+    {{ $file | readFile | replaceRE "^---(.|\n)*?---\n" "$1" | markdownify }}
+{{ else }}
+    {{ $file := (.Get 0) }}    
+    {{ $file | readFile | replaceRE "^---(.|\n)*?---\n" "$1" | markdownify }}
+{{ end }}
