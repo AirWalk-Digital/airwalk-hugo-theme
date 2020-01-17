@@ -58,7 +58,7 @@
 
 {{ define "technical_controls" }}
 
-<table>
+<table class='tData'> 
     <thead>
         <tr>
         <th>Control ID</th>
@@ -66,21 +66,66 @@
         <th>Control</th>
         <th>Applied</th>
         <th>Issues</th>
+        <th>Status</th>
         </tr>
         </thead>
         <tbody>
             {{ range .section }}
             <tr>
-                <td>{{.name}}</td>
+                <td class='name'>{{.name}}</td>
                 <td>{{.service}}</td>
                 <td>{{.control}}</td>
                 <td></td>
                 <td></td>
+                <td class='status'>Waiting</td>
             </tr>
             {{ end }}
 
 </tbody>
 </table>
 
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    $('.tData tr:gt(0)').each(function(){
+
+        var this_row = $(this);
+        var name_cell = this_row.find('.name');
+        var status_cell = this_row.find('.status');
+        var control_id = name_cell[0].innerText;
+        var url = 'http://127.0.0.1:5000/controls/'+control_id;
+
+        $.getJSON(url, function(data){
+            data['isCompliant'] ? status_cell.addClass('greenBg') :  status_cell.addClass('redBg')
+            status_cell.html(data['score']);
+        })
+        .error(function(event, jqxhr, exception) {
+        if (event.status == 404) {
+            status_cell.html('Unavailiable');
+        }
+        else
+        {
+            status_cell.html('Error '+ event.status);
+        }
+        status_cell.addClass('greyBg') 
+    });
+
+    })
+
+});
+
+</script> 
+<style>
+
+    .greenBg {
+        background: green;
+    }
+    .redBg {
+        background: red;
+    }
+    .greyBg {
+        background: grey;
+    }
+    
+    </style>
 {{end}}
 
