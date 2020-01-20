@@ -29,7 +29,9 @@
 <!-- Azure -->
 {{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "azure") }}
 <h3>Azure</h3>
-{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure")}}
+{{/* template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") */}}
+
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") "cloud" "azure"}}
 {{ end }}
 
 <!-- AWS -->
@@ -58,10 +60,25 @@
 
 {{ define "technical_controls" }}
 
+{{ $assignment := "" }}
+{{ $controls := slice }}
+{{ $cloud := .cloud}}
+
+{{ range $key, $value := .section }}
+{{ if eq $key "assignment_name" }}
+{{ $assignment = $value }}
+{{ end }}
+{{ if eq $key "controls" }}
+{{ $controls = $controls  | append $value }}
+{{ end }}
+{{ end }}
+
 <table class='tData'> 
     <thead>
         <tr>
         <th>Control ID</th>
+        <th>Assignment</th>
+        <th>Cloud</th>
         <th>Service</th>
         <th>Control</th>
         <th>Applied</th>
@@ -69,9 +86,11 @@
         </tr>
         </thead>
         <tbody>
-            {{ range .section }}
+            {{ range $controls }}
             <tr>
                 <td class='name'>{{.name}}</td>
+                <td class='assignment'>{{$assignment}}</td>
+                <td class='cloud'>{{ $cloud }}</td>
                 <td class='service'>{{.service}}</td>
                 <td class='control'>{{.control}}</td>
                 <td class='applied'>Waiting</td>
