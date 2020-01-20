@@ -72,8 +72,8 @@
             {{ range .section }}
             <tr>
                 <td class='name'>{{.name}}</td>
-                <td>{{.service}}</td>
-                <td>{{.control}}</td>
+                <td class='service'>{{.service}}</td>
+                <td class='control'>{{.control}}</td>
                 <td class='applied'>Waiting</td>
                 <td class='issues'></td>
             </tr>
@@ -87,11 +87,11 @@ document.addEventListener("DOMContentLoaded", function(){
     $('.tData tr:gt(0)').each(function(){
 
         var this_row = $(this);
-        var name_cell = this_row.find('.name');
+        var name_cell = this_row.find('.control');
         var applied_cell = this_row.find('.applied');
         var issues_cell = this_row.find('.issues');
         var control_id = name_cell[0].innerText;
-        var url = 'http://127.0.0.1:5000/controls/'+control_id;
+        var url = 'http://127.0.0.1:5000/controls/azure/csa_encryption_key_management_initative/'+control_id;
 
         $.getJSON(url, function(data){
             if(data['noncompliant']!=0){
@@ -106,17 +106,17 @@ document.addEventListener("DOMContentLoaded", function(){
             issues_cell.html(data['noncompliant']);
         })
         .error(function(event, jqxhr, exception) {
-        if (event.status == 404) {
-            applied_cell.html('Unavailiable');
+            if (event.status == 404) {
+                applied_cell.html('Unavailiable');
+
+            }
+            else{ 
+                applied_cell.html('Error '+ event.status);
+
+            }
             applied_cell.addClass('greyBg') 
             issues_cell.addClass('greyBg') 
-        }
-        else
-        {
-            applied_cell.html('Error '+ event.status);
-        }
-        
-    });
+        });
 
     })
 
