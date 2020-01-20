@@ -1,0 +1,20 @@
+
+{{ if .Site.Params.contentPrefix }}
+<!-- site has a prefix for content -->
+<div id="top-github-link">
+  <a class="github-link" title='{{T "Edit-this-page"}}' href="{{ .Site.Params.editURL }}{{ replace (replace .File.Dir "\\" "/") (printf "%s%s" .Site.Params.contentPrefix "/") "" }}{{ .File.LogicalName }}" target="blank">
+    <i class="fas fa-code-branch"></i>
+    <span id="top-github-link-text">{{T "Edit-this-page"}}</span>
+  </a>
+</div>
+<!-- {{ .Site.Params.editURL }}{{ replace .File.Dir "\\" "/" }}{{ .File.LogicalName }} -->
+  
+{{ else }}
+<!-- site has NO prefix for content -->
+<div id="top-github-link">
+    <a class="github-link" title='{{T "Edit-this-page"}}' href="{{ .Site.Params.editURL }}{{ replace .File.Dir "\\" "/" }}{{ .File.LogicalName }}" target="blank">
+      <i class="fas fa-code-branch"></i>
+      <span id="top-github-link-text">{{T "Edit-this-page"}}</span>
+    </a>
+  </div>
+{{ end }}

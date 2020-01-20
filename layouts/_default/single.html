@@ -1,9 +1,28 @@
 {{ partial "header.html" . }}
 
 
-<!-- Replace the image path and display the content -->
 
+
+{{ if .Params.summary }}
+<!-- Summary in the Frontmatter -->
+<div class="tldr">{{ .Params.summary | markdownify }}</div>
 {{ .Content }}
+
+{{ else }}
+
+{{ $both := split .RawContent "<!--more-->" }}
+{{ if eq (len $both) 2 }} 
+<!-- there is a summary section in the content -->
+<div class="tldr">{{ index $both 0 | markdownify }}</div>
+{{ replace .Content .Summary "" | markdownify}}
+
+{{ else }}
+<!-- no summary -->
+{{ .Content }}
+{{ end }}
+
+{{ end}}
+
 
 <!-- Old code to sort out image locations ---
 {{ $img := "<img src=\"" }}

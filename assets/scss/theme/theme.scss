@@ -330,7 +330,7 @@ html body h1 {
   html body h2, html body h3, html body h4 {
     color: #002b3d;
     font-weight: 400; }
-    html body h2::after , html body h3::after{
+    html body h2::after , html body h3::after , html body h4::after{
         background: #4AC7F0;
         content: '';
         display: block;
@@ -352,7 +352,7 @@ html body h1 {
     //     margin-bottom: .25cm;
     //     width: 2cm; }
   html body h4 {
-    font-size: 13pt; }
+    font-size: 16pt; }
 
     
 
