@@ -119,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function(){
         var control_name = control_cell[0].innerText;
         var assignment = assigned_cell[0].innerText;
         var cloud = cloud_cell[0].innerText;
-        var apiurl = {{ $apiurl }};
-        var url = apiurl +'/'+cloud+'/'+assignment+'/'+control_name;
+        var apiurl = "{{ $apiurl }}";
+        var url = apiurl +cloud+'/'+assignment+'/'+control_name;
 
         $.getJSON(url, function(data){
             if(data['noncompliant']!=0){
