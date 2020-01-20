@@ -84,8 +84,6 @@
     <thead>
         <tr>
         <th>Control ID</th>
-        <th>Assignment</th>
-        <th>Cloud</th>
         <th>Service</th>
         <th>Control</th>
         <th>Applied</th>
@@ -96,8 +94,8 @@
             {{ range $controls }}
             <tr>
                 <td class='name'>{{.name}}</td>
-                <td class='assignment'>{{$assignment}}</td>
-                <td class='cloud'>{{ $cloud }}</td>
+                <td class='assignment' style='display:none;'>{{$assignment}}</td>
+                <td class='cloud' style='display:none;'>{{ $cloud }}</td>
                 <td class='service'>{{.service}}</td>
                 <td class='control'>{{.control}}</td>
                 <td class='applied'>Waiting</td>
@@ -112,12 +110,17 @@ document.addEventListener("DOMContentLoaded", function(){
     $('.tData tr:gt(0)').each(function(){
 
         var this_row = $(this);
-        var name_cell = this_row.find('.control');
+        var control_cell = this_row.find('.control');
         var applied_cell = this_row.find('.applied');
         var issues_cell = this_row.find('.issues');
-        var control_id = name_cell[0].innerText;
-        var apiurl = {{ $apiurl }}
-        var url = apiurl + 'azure/csa_encryption_key_management_initative/'+control_id;
+        var assigned_cell = this_row.find('.assignment');
+        var cloud_cell = this_row.find('.cloud');
+
+        var control_name = control_cell[0].innerText;
+        var assignment = assigned_cell[0].innerText;
+        var cloud = cloud_cell[0].innerText;
+        var apiurl = {{ $apiurl }};
+        var url = apiurl +'/'+cloud+'/'+assignment+'/'+control_name;
 
         $.getJSON(url, function(data){
             if(data['noncompliant']!=0){
