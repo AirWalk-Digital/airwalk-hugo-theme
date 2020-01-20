@@ -31,7 +31,7 @@
 <h3>Azure</h3>
 {{/* template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") */}}
 
-{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") "cloud" "azure"}}
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") "cloud" "azure" "params" $.Site.Params}}
 {{ end }}
 
 <!-- AWS -->
@@ -63,6 +63,8 @@
 {{ $assignment := "" }}
 {{ $controls := slice }}
 {{ $cloud := .cloud}}
+{{ $apiurl := ""}}
+
 
 {{ range $key, $value := .section }}
 {{ if eq $key "assignment_name" }}
@@ -70,6 +72,11 @@
 {{ end }}
 {{ if eq $key "controls" }}
 {{ $controls = $controls  | append $value }}
+{{ end }}
+{{ end }}
+{{ range $key, $value := .params }}
+{{ if eq $key "apiurl" }}
+{{ $apiurl = $value }}
 {{ end }}
 {{ end }}
 
@@ -100,7 +107,6 @@
 
 </tbody>
 </table>
-
 <script>
 document.addEventListener("DOMContentLoaded", function(){
     $('.tData tr:gt(0)').each(function(){
@@ -110,7 +116,8 @@ document.addEventListener("DOMContentLoaded", function(){
         var applied_cell = this_row.find('.applied');
         var issues_cell = this_row.find('.issues');
         var control_id = name_cell[0].innerText;
-        var url = 'http://127.0.0.1:5000/controls/azure/csa_encryption_key_management_initative/'+control_id;
+        var apiurl = {{ $apiurl }}
+        var url = apiurl + 'azure/csa_encryption_key_management_initative/'+control_id;
 
         $.getJSON(url, function(data){
             if(data['noncompliant']!=0){
