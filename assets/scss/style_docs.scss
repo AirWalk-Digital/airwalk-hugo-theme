@@ -93,3 +93,8 @@
 //     }
 //   }
 // }
+
+
+// pick up varibles from config.toml
+
+$primary_color: {{ .Site.Params.primary_color | default "red" }}
