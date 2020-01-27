@@ -1,7 +1,7 @@
 <div id="top-bar-sticky-wrapper" class="sticky-wrapper" style="height: 50px; width: 100%; z-index: 100;">                
 <nav id="topbar" class="topbar">
     <a id="logo" href="/">
-      <img src="/logo.svg" height="20px"/>
+      <img src="{{ .Site.Params.LogoURL }}" height="20px"/>
     </a>
 
     {{ range .Site.Menus.main.ByWeight }}
