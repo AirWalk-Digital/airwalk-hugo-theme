@@ -1,6 +1,17 @@
 // Font
 // @import url('https://fonts.googleapis.com/css?family=Lato:400|Open+Sans:400,700');
 
+
+// pick up varibles from config.toml
+
+$primary_colour: {{ .Site.Params.primary_colour | default "red" }};
+$topbar_colour: {{ .Site.Params.topbar_colour | default "#002b3d" }};
+
+$menu_header_colour: {{ .Site.Params.menu_header_colour | default "#002131" }};
+$highlight_colour: {{ .Site.Params.highlight_colour | default "#33a1ff" }};
+
+
+
 // // Bootstrap
 @import 'bootstrap/functions';
 @import 'bootstrap-variables';
@@ -94,7 +105,3 @@
 //   }
 // }
 
-
-// pick up varibles from config.toml
-
-$primary_color: {{ .Site.Params.primary_color | default "red" }}
