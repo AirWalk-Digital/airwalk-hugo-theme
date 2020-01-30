@@ -4,14 +4,40 @@
 
 // pick up varibles from config.toml
 
-$primary_colour: {{ .Site.Params.primary_colour | default "red" }};
-$topbar_colour: {{ .Site.Params.topbar_colour | default "#002b3d" }};
+$primary_colour: {{ $.Site.Params.primary_colour | default "red" }};
+$topbar_colour: {{ $.Site.Params.topbar_colour | default "#002b3d" }};
+$menu_header_colour: {{ $.Site.Params.menu_header_colour | default "#002131" }};
+$menu_background_colour: {{ $.Site.Params.menu_background_colour | default "#000000" }};
+$highlight_colour: {{ $.Site.Params.highlight_colour | default "#33a1ff" }};
+$text_colour: {{ $.Site.Params.text_colour | default "#33a1ff" }};
 
-$menu_header_colour: {{ .Site.Params.menu_header_colour | default "#002131" }};
-$highlight_colour: {{ .Site.Params.highlight_colour | default "#33a1ff" }};
 
+:root{
+    
+    --MAIN-TEXT-color: {{ $.Site.Params.text_colour | default "#33a1ff" }}; //#323232; /* Color of text by default */
+    --MAIN-TITLES-TEXT-color: {{ $.Site.Params.text_colour | default "#33a1ff" }}; /* Color of titles h2-h3-h4-h5 */
+    --MAIN-LINK-color:{{ $.Site.Params.highlight_colour | default "#33a1ff" }} ; // #1C90F3; /* Color of links */
+    --MAIN-LINK-HOVER-color:{{ $.Site.Params.highlight_colour | default "#33a1ff" }}; //#167ad0; /* Color of hovered links */
+    --MAIN-ANCHOR-color: {{ $.Site.Params.highlight_colour | default "#33a1ff" }}; // #1C90F3; /* color of anchors on titles */
 
+    --MENU-HEADER-BG-color: {{ $.Site.Params.menu_header_colour | default "#002131" }}; /* Background color of menu header */
+    --MENU-HEADER-BORDER-color:{{ $.Site.Params.highlight_colour | default "#33a1ff" }}; /*Color of menu header border */ 
 
+    --MENU-SEARCH-BG-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#002131; /* Search field background color (by default borders + icons) */
+    --MENU-SEARCH-BOX-color: {{ $.Site.Params.topbar_colour | default "#002b3d" }}; /* Override search field border color */
+    --MENU-SEARCH-BOX-ICONS-color: {{ $.Site.Params.highlight_colour | default "#33a1ff" }}; //#a1d2fd; /* Override search field icons color */
+
+    --MENU-SECTIONS-ACTIVE-BG-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#20272b; /* Background color of the active section and its childs */
+    --MENU-SECTIONS-BG-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#252c31; /* Background color of other sections */
+    --MENU-SECTIONS-LINK-color: #ccc; /* Color of links in menu */
+    --MENU-SECTIONS-LINK-HOVER-color: #e6e6e6;  /* Color of links in menu, when hovered */
+    --MENU-SECTION-ACTIVE-CATEGORY-color: {{ $.Site.Params.active_text_colour | default "#33a1ff" }}; /* Color of active category text */
+    --MENU-SECTION-ACTIVE-CATEGORY-BG-color: {{ $.Site.Params.active_background_colour | default "#33a1ff" }}; //#fff; /* Color of background for the active category (only) */
+
+    --MENU-VISITED-color: {{ $.Site.Params.highlight_colour | default "#33a1ff" }}; /* Color of 'page visited' icons in menu */
+    --MENU-SECTION-HR-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#20272b; /* Color of <hr> separator in menu */
+    
+}
 // // Bootstrap
 @import 'bootstrap/functions';
 @import 'bootstrap-variables';

@@ -22,11 +22,11 @@
     {{end}}
 
     {{ if .Site.IsServer }}
-    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "style.main.scss" . | toCSS }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | toCSS }}
     <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
     {{ else }}
     {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "style.main.scss" . | toCSS | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ ($style | minify | fingerprint).RelPermalink }}">
+    <link rel="stylesheet" href="{{ ($style).RelPermalink }}" integrity="{{ $style.Data.Integrity }}" >
     {{ end }}
 
     <script src="{{"js/jquery-2.x.min.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
