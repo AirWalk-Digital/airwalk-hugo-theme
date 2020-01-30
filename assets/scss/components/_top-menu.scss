@@ -8,7 +8,7 @@
 /* topbar container */
 .topbar {
     overflow: hidden;
-    background-color: #002b3d;
+    background-color: $topbar_colour; // #002b3d;
     height: 50px;
     // position: fixed;
     width: 100%;
