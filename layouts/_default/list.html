@@ -1,12 +1,29 @@
 {{ partial "header.html" . }}
 
+
+
 {{ $img := "<img src=\"" }}
         <!-- {{ range .Resources}}
           {{ .RelPermalink}}
         {{ end }} -->
         {{ $path:= .Dir}}
         {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
-        {{ replace .Content $img $dstimg | safeHTML }}
+        {{ $body := replace .Content $img $dstimg | safeHTML }}
+
+        <div class="tldr">
+          <div class="tldr-header">
+            Summary
+          </div>
+          <div class="tldr-body">
+            <p class="tldr-text">{{ .Summary }}</p>
+          </div>
+        </div>
+
+
+        <!-- {{ $body := replace $body .Summary "" }} -->
+        {{ $realbody := replace .Content .Summary "" }}
+        {{ $realbody | safeHTML }}
+
 
         <!-- sub content banners -->
 

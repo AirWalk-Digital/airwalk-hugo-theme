@@ -10,10 +10,11 @@ $menu_header_colour: {{ $.Site.Params.menu_header_colour | default "#002131" }};
 $menu_background_colour: {{ $.Site.Params.menu_background_colour | default "#000000" }};
 $highlight_colour: {{ $.Site.Params.highlight_colour | default "#33a1ff" }};
 $text_colour: {{ $.Site.Params.text_colour | default "#33a1ff" }};
+$active_background_colour: {{ $.Site.Params.active_background_colour | default "#33a1ff" }};
 
 
 :root{
-    
+    --TOPBAR-color: {{ $.Site.Params.topbar_colour | default "#002b3d" }}; /* Override top bar color */
     --MAIN-TEXT-color: {{ $.Site.Params.text_colour | default "#33a1ff" }}; //#323232; /* Color of text by default */
     --MAIN-TITLES-TEXT-color: {{ $.Site.Params.text_colour | default "#33a1ff" }}; /* Color of titles h2-h3-h4-h5 */
     --MAIN-LINK-color:{{ $.Site.Params.highlight_colour | default "#33a1ff" }} ; // #1C90F3; /* Color of links */
@@ -109,6 +110,8 @@ $text_colour: {{ $.Site.Params.text_colour | default "#33a1ff" }};
 @import 'theme/theme-airwalk';
 
 @import 'theme/codeblock';
+
+@import 'theme/tldr';
 
 // Display breakpoints for DEV
 // body:after {
