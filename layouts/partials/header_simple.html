@@ -22,12 +22,13 @@
     {{end}}
 
     {{ if .Site.IsServer }}
-    {{ $style := resources.Get "scss/style_docs.scss" | toCSS (dict "targetPath" "css/css_style.css" "enableSourceMap" true) }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "style.main.scss" . | toCSS }}
     <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
     {{ else }}
-    {{ $style := resources.Get "scss/style_docs.scss" | toCSS (dict "targetPath" "css/css_style.css" "enableSourceMap" false) }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "style.main.scss" . | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ ($style | minify | fingerprint).RelPermalink }}">
     {{ end }}
+    
   </head>
   <body>
     {{ partial "menu-top.html" . }}
