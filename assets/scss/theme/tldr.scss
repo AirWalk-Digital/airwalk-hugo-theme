@@ -90,7 +90,7 @@ div#tldr p:first-child:after {
     word-wrap: break-word;
     background-color: $active_background_colour;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 0px solid rgba(0,0,0,.125);
     border-radius: 10px;
 }
 .tldr-header:first-child {
@@ -101,7 +101,7 @@ div#tldr p:first-child:after {
     margin-bottom: 0;
     background-color: $menu_background_colour;
     color: white;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    border-bottom: 0px solid rgba(0,0,0,.125);
 }
 .tldr-body {
     -webkit-box-flex: 1;
