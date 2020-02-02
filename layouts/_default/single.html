@@ -1,18 +1,20 @@
 {{ partial "header.html" . }}
 
+{{ $both := split .RawContent "<!--more-->" }}
+{{ if gt (len $both) 1 }}
 <div class="tldr">
 	<div class="tldr-header">
-	  Summary
+	Summary
 	</div>
 	<div class="tldr-body">
-	  <p class="tldr-text">{{ .Summary }}</p>
+	<p class="tldr-text">{{ index $both 0 | markdownify }}</p>
 	</div>
-  </div>
+</div>
 
-
-  <!-- {{ $body := replace $body .Summary "" }} -->
-  {{ $realbody := replace .Content .Summary "" }}
-  {{ $realbody | safeHTML }}
+{{ index $both 1 | markdownify }}
+{{ else }}
+	{{ .Content }}
+{{ end }}
 
 <!-- Replace the image path and display the content -->
 

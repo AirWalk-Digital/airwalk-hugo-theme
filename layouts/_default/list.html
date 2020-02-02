@@ -9,20 +9,24 @@
         {{ $path:= .Dir}}
         {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
         {{ $body := replace .Content $img $dstimg | safeHTML }}
-
+        {{ $both := split .RawContent "<!--more-->" }}
+        {{ if gt (len $both) 1 }}
         <div class="tldr">
           <div class="tldr-header">
             Summary
           </div>
           <div class="tldr-body">
-            <p class="tldr-text">{{ .Summary }}</p>
+            <p class="tldr-text">{{ index $both 0 | markdownify }}</p>
           </div>
         </div>
 
-
+        {{ index $both 1 | markdownify }}
+        {{ else }}
+          {{ .Content }}
+        {{ end }}
         <!-- {{ $body := replace $body .Summary "" }} -->
         {{ $realbody := replace .Content .Summary "" }}
-        {{ $realbody | safeHTML }}
+        <!-- {{ $realbody | safeHTML }} -->
 
 
         <!-- sub content banners -->
