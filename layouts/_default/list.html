@@ -35,16 +35,16 @@
           {{ range .Sections }}
           {{ if isset .Params "background" }}
           {{ if fileExists (printf "static%s" .Params.Background) }}
-                <figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}><a href={{.Permalink}}><img src="{{.Params.Background}}" class="masonry-img" ></a></figure>
+                <figure class="masonry-brick" alt="{{.Title}}" href={{.RelPermalink}}><a href={{.RelPermalink}}><img src="{{.Params.Background}}" class="masonry-img" ></a></figure>
               {{else}}
-                <a href={{.Permalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}></figure></a>
+                <a href={{.RelPermalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.RelPermalink}}></figure></a>
               {{end}}
             {{ else }}
-              <a href={{.Permalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}></figure></a>
+              <a href={{.RelPermalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.RelPermalink}}></figure></a>
             {{ end }}
           {{ end }}
           {{ range .Pages }}
-          <!-- <a href={{.Permalink}}><figure class="masonry-brick masonry-brick--h" alt="{{.Title}}(page)"><img src="{{.Params.Background}}" class="masonry-img" ></figure></a> -->
+          <!-- <a href={{.RelPermalink}}><figure class="masonry-brick masonry-brick--h" alt="{{.Title}}(page)"><img src="{{.Params.Background}}" class="masonry-img" ></figure></a> -->
           {{ end }}
           </div>
         <!-- - -->
