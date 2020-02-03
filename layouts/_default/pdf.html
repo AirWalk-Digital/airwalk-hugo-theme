@@ -116,7 +116,14 @@
             <!-- Content -->
             {{if gt (len .Content) 0}}
                 <h1>{{.Title}}</h1>
-                {{.Content}}
+
+                {{ $img := "<img src=\"" }}
+                {{ range .Resources}}
+                <!-- {{ .RelPermalink}} -->
+                {{ end }}
+                {{ $path:= .Dir}}
+                {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
+                {{ replace .Content $img $dstimg | safeHTML }}
             {{ end }}
         {{ end }}
     {{ end }}
