@@ -1,0 +1,7 @@
+{{  if gt (len (intersect .Params.technology .Site.Params.technologies)) 0}}
+  <i class="fas fa-cloud" style="font-size:28px"></i>
+{{ else if in .Params.technology "aws" }}
+  <i class="fab fa-aws" style="font-size:24px"></i>
+{{ else if in .Params.technology "azure" }}
+  <i class="fab fa-windows" style="font-size:24px"></i>
+{{ end }}

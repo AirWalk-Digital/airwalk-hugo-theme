@@ -101,7 +101,7 @@
         <div id="body-inner">
           {{ if .Content }}
           {{if and (not .IsHome) (gt (len .Content) 180) (not .Params.notitle)}}
-            <h1>{{.Title}}</h1>
+            <h1>{{.Title}} {{ partial "tech-logo.html" . }} </h1>
           {{end}}
           {{end}}
 

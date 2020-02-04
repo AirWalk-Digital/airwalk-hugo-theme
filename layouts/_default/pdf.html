@@ -37,21 +37,21 @@
 <article id="contents">
     <h2>Contents</h2>
     {{range .Site.Home.Sections.ByWeight}}
-    {{if (not .Params.Hidden)}}
+    {{if and (not .Params.Hidden) (not (eq .Params.pdf false))}}
         <h4>{{.Title}}</h4>
         {{ range .Pages.ByWeight }} 
             <!-- Pages -->
-            {{if and (not .IsSection) (not .Params.Hidden)}}
+            {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
                 <h5>{{.Title}}</h5>
             {{ end }}
         {{ end }}
         {{ range .Sections.ByWeight }}
-            {{if (not .Params.Hidden)}}
-                <h5>{{.Title}}</h5>
+        {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+        <h5>{{.Title}}</h5>
             {{ end }}
             {{ range .Pages.ByWeight }} 
             <!-- Pages -->
-            {{if and (not .IsSection) (not .Params.Hidden)}}
+            {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
                 <h5>{{.Title}}</h5>
             {{ end }}
         {{ end }}
@@ -96,14 +96,14 @@
         {{ range .Sections.ByWeight }}
         <!-- Sections -->
         <!-- {{ .Title }} -->
-            {{if (not .Params.Hidden)}}
+            {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
                 {{ template "contentPage" dict "page" . }}
             {{ end }}
             {{ template "nested" dict "sect" . }}
             {{ range .Pages.ByWeight }} 
             <!-- Pages -->
             <!-- {{ .Title }} -->
-                {{if and (not .IsSection) (not .Params.Hidden)}}
+                {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
                     {{ template "contentPage" dict "page" . }}
                 {{ end }}
             {{ end }}
@@ -113,8 +113,8 @@
 
 {{ define "contentPage" }}
     {{ with .page}}
-        {{ if (not .Params.Hidden)}}
-            <!-- Content -->
+        {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+             <!-- Content -->
             {{if gt (len .Content) 0}}
                 <h1>{{.Title}}</h1>
 
