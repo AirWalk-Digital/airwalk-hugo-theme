@@ -8,8 +8,11 @@
 {{if .Site.Home.Content }} 
 {{.Site.Home.Content}}
 
-
-
+{{ if (isset .Params "build_status_images" )}}
+{{ range .Params.build_status_images }}
+<img src="{{.}}" alt="Build Status">
+{{ end }}
+{{ end }}
 
 {{else}}           
 	
