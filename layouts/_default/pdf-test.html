@@ -70,7 +70,7 @@
 
 
 
-{{range .Site.Home.Sections.ByWeight}}
+{{range first 2 .Site.Home.Sections.ByWeight}}
     {{if (not .Params.Hidden)}}
     
 
@@ -94,7 +94,7 @@
 {{ define "nested" }}
     {{ with .section}}
 <!-- Content nested in a section -->
-        {{ range .Sections.ByWeight }}
+        {{ range first 2 .Sections.ByWeight }}
         <!-- Sections -->
         <!-- {{ .Title }} -->
             {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
