@@ -120,9 +120,14 @@ document.addEventListener("DOMContentLoaded", function(){
         var assignment = assigned_cell[0].innerText;
         var cloud = cloud_cell[0].innerText;
         var apiurl = "{{ $apiurl }}";
-        var url = apiurl +cloud+'/'+assignment+'/'+control_name;
 
-        $.getJSON(url, function(data){
+        var params = {
+            provider_name: cloud,
+            assignment_name: assignment,
+            policy_name: control_name
+        };
+
+        $.getJSON(apiurl, params, function(data){
             if(data['noncompliant']!=0){
                 issues_cell.addClass('redBg')
             }
