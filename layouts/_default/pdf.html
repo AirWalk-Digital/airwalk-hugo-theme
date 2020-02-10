@@ -90,22 +90,37 @@
 {{ end }}
 
 
+
 <!-- templates -->
 {{ define "nested" }}
     {{ with .section}}
 <!-- Content nested in a section -->
         {{ range .Sections.ByWeight }}
         <!-- Sections -->
+            {{ range .Sections.ByWeight }}
+                {{/*  <h1>N_SECTION: {{.Title }}</h1>  */}}
+                {{ template "nested" dict "section" . }}
+            {{ end }}
         <!-- {{ .Title }} -->
             {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
                 {{ template "contentPage" dict "page" . }}
             {{ end }}
             {{ template "nested" dict "sect" . }}
             {{ range .Pages.ByWeight }} 
+            <!-- Sections -->
+            <!-- {{ .Title }} -->
+                {{if and (.IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+                    {{/*  <h1>L_SECTION: {{.Title }}</h1>  */}}
+                    {{ template "contentPage" dict "page" . }}      
+                {{ end }}
+            {{ end }}
+            
+            {{ range .Pages.ByWeight }} 
             <!-- Pages -->
             <!-- {{ .Title }} -->
                 {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
-                    {{ template "contentPage" dict "page" . }}
+                    {{/*  <h1>PAGE: {{.Title }}</h1>  */}}
+                    {{ template "contentPage" dict "page" . }}      
                 {{ end }}
             {{ end }}
         {{ end }}
@@ -130,6 +145,8 @@
         {{ end }}
     {{ end }}
 {{ end }}
+
+
 
 
 
