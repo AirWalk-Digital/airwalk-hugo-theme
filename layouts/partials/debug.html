@@ -1,12 +1,12 @@
 <!-- Pretty Print for Debug -->
 <!-- https://github.com/kaushalmodi/hugo-debugprint/blob/master/layouts/partials/debugprint.html -->
 <!-- Usage examples (remove /* and */ when using):
-     {{/* partial "debugprint.html" .Params */}}
-     {{/* partial "debugprint.html" site */}}
-     {{/* partial "debugprint.html" site.Menus */}}
-     {{/* partial "debugprint.html" .GitInfo */}}
-     {{/* partial "debugprint.html" .Resources */}}
-     {{/* partial "debugprint.html" .File */}}
+     {{/* partial "debug.html" .Params */}}
+     {{/* partial "debug.html" site */}}
+     {{/* partial "debug.html" site.Menus */}}
+     {{/* partial "debug.html" .GitInfo */}}
+     {{/* partial "debug.html" .Resources */}}
+     {{/* partial "debug.html" .File */}}
 -->
 <!-- Associated CSS file:
      https://github.com/kaushalmodi/hugo-debugprint/blob/master/layouts/partials/debugprint.css
@@ -49,7 +49,7 @@
     {{ printf "%s" $value | safeHTML }}
 {{ else if $typeIsSlice }}
     {{ range $value }}
-        {{ partial "debugprint.html" . }} <!-- Recursive call FTW! -->
+        {{ partial "debug.html" . }} <!-- Recursive call FTW! -->
     {{ end }}
 {{ else if $typeIsMap }}
     {{ if (gt (len $value) 0) }}
@@ -63,12 +63,12 @@
                         <!-- Print the date only if it is not at its initial value of Jan 1, 0001 -->
                         {{ if (ne "0001-01-01" ($value1.Format "2006-01-02")) }}
                             {{ printf `<tr><td class="key">%s</td><td class="type">%s</td><td class="value">` $key1 $type1 | safeHTML }}
-                            {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
+                            {{ partial "debug.html" $value1 }} <!-- Recursive call FTW! -->
                             {{ printf "</td></tr>" | safeHTML }}
                         {{ end }}
                     {{ else }}
                         {{ printf `<tr><td class="key">%s</td><td class="type">%s</td><td class="value">` $key1 $type1 | safeHTML }}
-                        {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
+                        {{ partial "debug.html" $value1 }} <!-- Recursive call FTW! -->
                         {{ printf "</td></tr>" | safeHTML }}
                     {{ end }}
                 {{ end }}
@@ -84,7 +84,7 @@
                 <tr><th class="key">SiteInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $siteVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $siteVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $siteVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -95,7 +95,7 @@
                 <tr><th class="key">GitInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $gitInfoVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $gitInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $gitInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -106,7 +106,7 @@
                 <tr><th class="key">OutputFormat Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $OutputFormatVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $OutputFormatVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $OutputFormatVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -119,7 +119,7 @@
                 <tr><th class="key">FileInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $FileInfoVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $FileInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $FileInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -130,7 +130,7 @@
                 <tr><th class="key">Page Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $PageVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $PageVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $PageVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
                 {{ with .NextPage }}
@@ -161,7 +161,7 @@
                 <tr><th class="key">MenuEntry Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $MenuEntryVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $MenuEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $MenuEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -172,7 +172,7 @@
                 <tr><th class="key">OrderedTaxonomyEntry Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $OrderedTaxonomyEntryVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $OrderedTaxonomyEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $OrderedTaxonomyEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -188,7 +188,7 @@
                 <tr><th class="key">Resource Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $ResourceVarNames }}
                     {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $ResourceVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ partial "debug.html" (index $ResourceVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
