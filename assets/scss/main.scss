@@ -7,6 +7,8 @@
 $primary_colour: {{ $.Site.Params.primary_colour | default "red" }};
 $topbar_colour: {{ $.Site.Params.topbar_colour | default "#002b3d" }};
 $menu_header_colour: {{ $.Site.Params.menu_header_colour | default "#002131" }};
+$searchbox_colour: {{ $.Site.Params.searchbox_colour | default "#002b3d" }};
+$searchbox_icons_colour: {{ $.Site.Params.searchbox_colour | default "#002b3d" }};
 $menu_background_colour: {{ $.Site.Params.menu_background_colour | default "#000000" }};
 $highlight_colour: {{ $.Site.Params.highlight_colour | default "#33a1ff" }};
 $text_colour: {{ $.Site.Params.text_colour | default "#33a1ff" }};
@@ -25,8 +27,8 @@ $active_background_colour: {{ $.Site.Params.active_background_colour | default "
     --MENU-HEADER-BORDER-color:{{ $.Site.Params.highlight_colour | default "#33a1ff" }}; /*Color of menu header border */ 
 
     --MENU-SEARCH-BG-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#002131; /* Search field background color (by default borders + icons) */
-    --MENU-SEARCH-BOX-color: {{ $.Site.Params.topbar_colour | default "#002b3d" }}; /* Override search field border color */
-    --MENU-SEARCH-BOX-ICONS-color: {{ $.Site.Params.highlight_colour | default "#33a1ff" }}; //#a1d2fd; /* Override search field icons color */
+    --MENU-SEARCH-BOX-color: {{ $.Site.Params.searchbox_colour | default "#002b3d" }}; /* Override search field border color */
+    --MENU-SEARCH-BOX-ICONS-color: {{ $.Site.Params.searchbox_icons_colour | default "#33a1ff" }}; //#a1d2fd; /* Override search field icons color */
 
     --MENU-SECTIONS-ACTIVE-BG-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#20272b; /* Background color of the active section and its childs */
     --MENU-SECTIONS-BG-color: {{ $.Site.Params.menu_background_colour | default "#000000" }}; //#252c31; /* Background color of other sections */
