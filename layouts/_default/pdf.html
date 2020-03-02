@@ -10,7 +10,8 @@
     <link rel="canonical" href="{{ .Permalink }}" />
     {{ $style := resources.Get "scss/print.scss" | resources.ExecuteAsTemplate "print.scss" . | toCSS }}
     <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
-    <!-- <link rel="stylesheet" href="/css/print.css" /> -->
+    {{ $style_pdf := resources.Get "scss/pdf-full.scss" | resources.ExecuteAsTemplate "pdf-full.scss" . | toCSS }}
+    <link rel="stylesheet" href="{{ ($style_pdf).RelPermalink }}">
 
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
