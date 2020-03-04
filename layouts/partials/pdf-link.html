@@ -1,0 +1,11 @@
+<!-- site has NO prefix for content -->
+{{ $file := (printf "%s%s.pdf" .Dir (urlize .Title))}}
+{{ if (fileExists $file) -}}
+<div id="top-github-link">
+  <a class="github-link" title='{{T "Download-PDF"}}' href="/{{ $file }}" target="blank">
+    <i class="fas fa-file-pdf"></i>
+    <span id="top-github-link-text">{{T "Download-PDF"}}</span>
+  </a>
+</div>
+{{- end }}
+

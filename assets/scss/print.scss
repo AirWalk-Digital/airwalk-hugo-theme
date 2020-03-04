@@ -347,7 +347,22 @@ table tr:last-child td:first-child {
 /* bottom-right border-radius */
 table tr:last-child td:last-child {
   border-bottom-right-radius: 6px;
-}      
+} 
+
+// alternate images to the left or right
+#body-inner p a img{
+  float:right;
+  margin-bottom: 25px;
+  // clear:left;    
+ }
+#body-inner p a img:nth-of-type(2n){
+   float:left; 
+   margin-bottom: 25px;
+  //  clear:right;
+ }
+
+
+ 
 /* 
   html body table { 
     border: 1px solid {{ $.Site.Params.menu_background_colour }}; 
