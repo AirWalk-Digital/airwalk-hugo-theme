@@ -7,6 +7,7 @@
     console.log('Long Env: ', '{{ (getenv "HUGO_ENV") | (getenv "ENVIRONMENT") | default .Site.Params.env | default "DEV" }}')
     console.log('Is Prod?: ', '{{ (eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")) }}')
     console.log('Page Kind: ', '{{.Page.Kind}}')
+    console.log('Params: ', '{{.Params}}')
     console.log('Current Section: ', '{{.Page.CurrentSection | default "NOT SET" }}')
     console.log('Page Section: ', '{{.Page.Section | default "NOT SET" }}')
     console.log('Page Type: ', '{{.Page.Type}}')

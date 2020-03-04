@@ -1,0 +1,17 @@
+{{ if .Site.IsServer }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | toCSS }}
+    <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
+{{ else }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "style.main.scss" . | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ ($style).RelPermalink }}" integrity="{{ $style.Data.Integrity }}" >
+{{ end }}
+
+{{ if not (in .Params.css "inline-img")}}
+    {{ if .Site.IsServer }}
+        {{ $style := resources.Get "scss/inline-img.scss" | resources.ExecuteAsTemplate "inline-img.scss" . | toCSS }}
+        <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
+    {{ else }}
+        {{ $style := resources.Get "scss/inline-img.scss" | resources.ExecuteAsTemplate "style.inline-img.scss" . | toCSS | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ ($style).RelPermalink }}" integrity="{{ $style.Data.Integrity }}" >
+    {{ end }}
+{{ end }}

@@ -135,18 +135,3 @@ $active_background_colour: {{ $.Site.Params.active_background_colour | default "
 //     }
 //   }
 // }
-
-
-{{ if not (in .Params.css "inline-img") }}
-// alternate images to the left or right
-#body-inner p a img{
-    float:right;
-    margin-bottom: 25px;
-    // clear:left;    
-   }
-#body-inner p a img:nth-of-type(2n){
-     float:left; 
-     margin-bottom: 25px;
-    //  clear:right;
-   }
-{{ end }}
