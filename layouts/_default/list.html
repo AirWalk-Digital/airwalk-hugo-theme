@@ -10,7 +10,7 @@
             <p class="tldr-text">{{ index $both 0 | markdownify }}</p>
           </div>
         </div>
-
+        
         {{ $.Page.RenderString (index $both 1 )  }}
         {{ else }}
           {{ .Content }}

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ ($style).RelPermalink }}" integrity="{{ $style.Data.Integrity }}" >
 {{ end }}
 
-{{ if not (in .Params.css "inline-img")}}
+{{ if (in .Params.css "alternate-img")}}
     {{ if .Site.IsServer }}
         {{ $style := resources.Get "scss/inline-img.scss" | resources.ExecuteAsTemplate "inline-img.scss" . | toCSS }}
         <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
