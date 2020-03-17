@@ -14,6 +14,11 @@ $highlight_colour: {{ $.Site.Params.highlight_colour | default "#33a1ff" }};
 $text_colour: {{ $.Site.Params.text_colour | default "#33a1ff" }};
 $active_background_colour: {{ $.Site.Params.active_background_colour | default "#33a1ff" }};
 
+// mermaid variables
+$nodeBorder : {{ $.Site.Params.menu_background_colour | default "#000000" }};
+$nodeBkg: {{ $.Site.Params.active_background_colour | default "#33a1ff" }};
+
+
 
 :root{
     --TOPBAR-color: {{ $.Site.Params.topbar_colour | default "#002b3d" }}; /* Override top bar color */
@@ -114,7 +119,7 @@ $active_background_colour: {{ $.Site.Params.active_background_colour | default "
 @import 'theme/codeblock';
 
 @import 'theme/tldr';
-
+@import 'theme/mermaid';
 // Display breakpoints for DEV
 // body:after {
 //   color: #000000;
