@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="{{ .Site.LanguageCode }}"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <title>{{ .Title }}</title>
+    <link rel="canonical" href="{{ .Permalink }}" />
+    {{ $style := resources.Get "scss/print.scss" | resources.ExecuteAsTemplate "print.scss" . | toCSS }}
+    <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
+    {{ $style_pdf := resources.Get "scss/pdf-full.scss" | resources.ExecuteAsTemplate "pdf-full.scss" . | toCSS }}
+    <link rel="stylesheet" href="{{ ($style_pdf).RelPermalink }}">
+
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+    
+  </head>
+  <body
+  lang="{{ .Site.LanguageCode }}"
+  class="sans-serif w-90 w-60-ns center center-ns mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+
+
+<div class="pdfshow">  
+    <article id="cover" class="mt5">
+        <div id="heading" >
+        <h2 id="title">{{ .Site.Title }}</h2>
+        <h2 id="title">{{ .Site.Params.sub_title | default "" }}</h2>
+        <h3>Produced: {{ now.Format "January 2, 2006" }}</h3>
+    </div>
+    </article>
+</div>
+
+
+<article id="contents">
+    <h2>Contents</h2>
+    {{range .Site.Home.Sections.ByWeight}}
+    {{if and (not .Params.Hidden) (not (eq .Params.pdf false))}}
+        <h4>{{.Title}}</h4>
+        {{ range .Pages.ByWeight }} 
+            <!-- Pages -->
+            {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+                <p>{{.Title}}</p>
+            {{ end }}
+        {{ end }}
+        {{ range .Sections.ByWeight }}
+        {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+        <p>{{.Title}}</p>
+            {{ end }}
+            {{ range .Pages.ByWeight }} 
+            <!-- Pages -->
+            {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+                <p>{{.Title}}</p>
+            {{ end }}
+        {{ end }}
+        {{ range .Sections.ByWeight }}
+            {{if (not .Params.Hidden)}}
+                <p>{{.Title}}</p>
+            {{ end }}
+
+        {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+</article>
+
+
+
+
+{{range .Site.Home.Sections.ByWeight}}
+    {{if (not .Params.Hidden)}}
+    
+
+                   <!-- Chapter heading -->
+                   <div class="pdfshow">
+                    <article id="chapter">
+                        <h2 id="chapter-title">{{ .Title }}</h2>
+                    </article>
+                </div> 
+
+                {{ template "contentPage" dict "page" . }}
+                
+                {{ template "nested" dict "section" . }}
+
+
+    {{ end }}
+{{ end }}
+
+
+
+<!-- templates -->
+{{ define "nested" }}
+    {{ with .section}}
+<!-- Content nested in a section -->
+        {{ range .Sections.ByWeight }}
+        <!-- Sections -->
+            {{ range .Sections.ByWeight }}
+                {{/*  <h1>N_SECTION: {{.Title }}</h1>  */}}
+                {{ template "nested" dict "section" . }}
+            {{ end }}
+        <!-- {{ .Title }} -->
+            {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+                {{ template "contentPage" dict "page" . }}
+            {{ end }}
+            {{ template "nested" dict "sect" . }}
+            {{ range .Pages.ByWeight }} 
+            <!-- Sections -->
+            <!-- {{ .Title }} -->
+                {{if and (.IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+                    {{/*  <h1>L_SECTION: {{.Title }}</h1>  */}}
+                    {{ template "contentPage" dict "page" . }}      
+                {{ end }}
+            {{ end }}
+            
+            {{ range .Pages.ByWeight }} 
+            <!-- Pages -->
+            <!-- {{ .Title }} -->
+                {{if and (not .IsSection) (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+                    {{/*  <h1>PAGE: {{.Title }}</h1>  */}}
+                    {{ template "contentPage" dict "page" . }}      
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ define "contentPage" }}
+    {{ with .page}}
+        {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
+             <!-- Content -->
+            {{if gt (len .Content) 0}}
+                <h1>{{.Title}}</h1>
+
+                {{ $img := "<img src=\"" }}
+                {{ range .Resources}}
+                <!-- {{ .RelPermalink}} -->
+                {{ end }}
+                {{ $path:= .Dir}}
+                {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
+                {{ replace .Content $img $dstimg | safeHTML }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+
+
+
+
+{{ partial "footer.html" . }}

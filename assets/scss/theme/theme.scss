@@ -315,12 +315,12 @@ html {
     // margin:    0 auto;
   }
 html body h1 {
-    color: #002b3d;
+    color: $text_colour;
     font-size: 28pt;
     // margin: 0cm 0cm 0cm 1cm;
     width: 100%; }
     html body h1::after, html body h2::after {
-        background: #4AC7F0;
+        background: $highlight_colour; // #4AC7F0;
         content: '';
         display: block;
         height: .08cm;
@@ -330,8 +330,8 @@ html body h1 {
   html body h2, html body h3, html body h4 {
     color: #002b3d;
     font-weight: 400; }
-    html body h2::after{
-        background: #4AC7F0;
+    html body h2::after , html body h3::after{
+        background: $highlight_colour; // #4AC7F0;
         content: '';
         display: block;
         height: .08cm;
@@ -341,8 +341,8 @@ html body h1 {
   html body h2 {
     font-size: 28pt;}
   html body h3 {
-    font-weight: 300;
-    font-size: 15pt; 
+    font-weight: 400;
+    font-size: 20pt; 
 }
     // html body h3::before {
     //     background: #002b3d;
@@ -352,7 +352,7 @@ html body h1 {
     //     margin-bottom: .25cm;
     //     width: 2cm; }
   html body h4 {
-    font-size: 13pt; }
+    font-size: 16pt; }
 
     
 

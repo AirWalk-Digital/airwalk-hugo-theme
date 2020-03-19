@@ -1,9 +1,23 @@
 {{ partial "header.html" . }}
 
 
-<!-- Replace the image path and display the content -->
 
-{{ .Content }}
+{{ $both := split .RawContent "<!--more-->" }}
+{{ if gt (len $both) 1 }}
+<div class="tldr">
+	<div class="tldr-header">
+	Summary
+	</div>
+	<div class="tldr-body">
+	<p class="tldr-text">{{ index $both 0 | markdownify }}</p>
+	</div>
+</div>
+
+{{ index $both 1 | markdownify }}
+{{ else }}
+<!-- no summary -->
+	{{ .Content }}
+{{ end }}
 
 <!-- Old code to sort out image locations ---
 {{ $img := "<img src=\"" }}
@@ -17,6 +31,10 @@
 <footer class=" footline" >
 	{{with .Params.LastModifierDisplayName}}
 	    <i class='fas fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{with $.Date}} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
+	    </div>
+	{{end}}
+	{{with .GitInfo}}
+		<i class='fas fa-user'></i> <a href="mailto:{{ .AuthorEmail }}">{{ .AuthorName }}</a> {{with .AuthorDate}} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
 	    </div>
 	{{end}}
 </footer>

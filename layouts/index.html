@@ -1,9 +1,19 @@
 {{ partial "header.html" . }}
 <!-- {{ partial "header_simple.html" . }} -->
 
+{{ if (fileExists "_print/full.pdf") -}}
+<p>Download full PDF here: <a href="_print/full.pdf"><i class="far fa-file-pdf"></i></a>
+{{- end }}
 
 {{if .Site.Home.Content }} 
-{{.Site.Home.Content}}	
+{{.Site.Home.Content}}
+
+{{ if (isset .Params "build_status_images" )}}
+{{ range .Params.build_status_images }}
+<img src="{{.}}" alt="Build Status">
+{{ end }}
+{{ end }}
+
 {{else}}           
 	
 <!-- html content -->

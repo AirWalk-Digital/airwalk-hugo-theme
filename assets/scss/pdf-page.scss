@@ -1,0 +1,79 @@
+
+$primary_colour: {{ $.Site.Params.primary_colour | default "red" }};
+$topbar_colour: {{ $.Site.Params.topbar_colour | default "{{ $.Site.Params.menu_background_colour }}" }};
+$menu_header_colour: {{ $.Site.Params.menu_header_colour | default "#002131" }};
+$menu_background_colour: {{ $.Site.Params.menu_background_colour | default "#000000" }};
+$highlight_colour: {{ $.Site.Params.highlight_colour | default "#33a1ff" }};
+$text_colour: {{ $.Site.Params.text_colour | default "#33a1ff" }};
+
+
+// @page :first {
+//   // background: url({{ $.Site.Params.PDFbanner }}) no-repeat;
+// //   background-size: 50px;
+// //   /* background-image: url(/backgrounds/airwalk-header.png) no-repeat; */
+// //   background-color: $highlight_colour; 
+//   // background-size: length auto, 510px, contain;
+//   margin: 50,50,50,50; }
+
+@page :first {
+  
+  @top-center {
+    content: "{{ .Site.Title }} {{ .Site.Params.sub_title | default "" }}";
+    display: block;
+    color: white;
+    font-weight: 600;
+    font-size: 250.5vw;
+    text-align: center;
+    vertical-align: center;
+    height: 100%;
+    opacity: 100;
+    width: 100%; 
+    background: $highlight_colour; 
+  }
+  @top-left-corner {
+    content: '';
+    display: block;
+    height: 5cm;
+    width: 100%; 
+    background: $highlight_colour; 
+  }
+  @top-right-corner {
+    content: '';
+    display: block;
+    height: 5cm;
+    width: 100%; 
+    background: $highlight_colour; 
+  }
+}
+
+
+  html body article#banner {
+    width: 100%;
+    align-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    break-after: never;
+    text-align: left;
+    position: 500px;
+    /* position: relative; */
+    /* height: 297mm;  */
+  }  
+#bannertop {
+    position: running(bannertop);
+    // width: 100%;
+    // align-content: space-between;
+    // display: flex;
+    // flex-wrap: wrap;
+    // flex-direction: column;
+    break-after: never;
+    text-align: left;
+    background: url({{ $.Site.Params.PDFbanner }}) no-repeat;
+    background-repeat: no-repeat;
+    background-color: $highlight_colour; 
+    background-size: contain;
+    margin: 0;
+    // position: 100px;
+    /* position: relative; */
+    /* height: 297mm;  */
+  }  

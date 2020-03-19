@@ -1,29 +1,41 @@
 {{ partial "header.html" . }}
 
-{{ $img := "<img src=\"" }}
-        <!-- {{ range .Resources}}
-          {{ .RelPermalink}}
-        {{ end }} -->
-        {{ $path:= .Dir}}
-        {{ $dstimg := (printf "%s%s" "<img src=\"/" $path ) }}
-        {{ replace .Content $img $dstimg | safeHTML }}
+        {{ $both := split .RawContent "<!--more-->" }}
+        {{ if gt (len $both) 1 }}
+        <div class="tldr">
+          <div class="tldr-header">
+            Summary
+          </div>
+          <div class="tldr-body">
+            <p class="tldr-text">{{ index $both 0 | markdownify }}</p>
+          </div>
+        </div>
+        
+        {{ $.Page.RenderString (index $both 1 )  }}
+        {{ else }}
+          {{ .Content }}
+        {{ end }}
+
+
 
         <!-- sub content banners -->
 
         <div class="masonry">
           {{ range .Sections }}
+          {{if and (not .Params.Hidden) (or (not (isset .Params "technology")) (gt (len (intersect .Params.technology .Site.Params.technologies)) 0)) }}
           {{ if isset .Params "background" }}
           {{ if fileExists (printf "static%s" .Params.Background) }}
-                <figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}><a href={{.Permalink}}><img src="{{.Params.Background}}" class="masonry-img" ></a></figure>
+                <figure class="masonry-brick" alt="{{.Title}}" href={{.RelPermalink}}><a href={{.RelPermalink}}><img src="{{.Params.Background}}" class="masonry-img" ></a></figure>
               {{else}}
-                <a href={{.Permalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}></figure></a>
+                <a href={{.RelPermalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.RelPermalink}}></figure></a>
               {{end}}
             {{ else }}
-              <a href={{.Permalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.Permalink}}></figure></a>
+              <a href={{.RelPermalink}} class="masonry-brick"><figure class="masonry-brick" alt="{{.Title}}" href={{.RelPermalink}}></figure></a>
             {{ end }}
           {{ end }}
+          {{ end }}
           {{ range .Pages }}
-          <!-- <a href={{.Permalink}}><figure class="masonry-brick masonry-brick--h" alt="{{.Title}}(page)"><img src="{{.Params.Background}}" class="masonry-img" ></figure></a> -->
+          <!-- <a href={{.RelPermalink}}><figure class="masonry-brick masonry-brick--h" alt="{{.Title}}(page)"><img src="{{.Params.Background}}" class="masonry-img" ></figure></a> -->
           {{ end }}
           </div>
         <!-- - -->

@@ -21,13 +21,7 @@
       <!-- <link href="{{(printf "css/theme-%s.css" .) | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet"> -->
     {{end}}
 
-    {{ if .Site.IsServer }}
-    {{ $style := resources.Get "scss/style_docs.scss" | toCSS (dict "targetPath" "css/css_style.css" "enableSourceMap" true) }}
-    <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
-    {{ else }}
-    {{ $style := resources.Get "scss/style_docs.scss" | toCSS (dict "targetPath" "css/css_style.css" "enableSourceMap" false) }}
-    <link rel="stylesheet" href="{{ ($style | minify | fingerprint).RelPermalink }}">
-    {{ end }}
+    {{ partial "css-processor.html" . }}
 
     <script src="{{"js/jquery-2.x.min.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
 
@@ -45,7 +39,12 @@
   </head>
   <body class="" data-url="{{ .RelPermalink }}">
     <!-- {{ cond (eq .Section "private") (partial "menu.html" .) "" }} -->
-    {{ partial "menu.html" . }}
+
+    {{ if .Site.Params.contentPrefix }}
+      {{ cond (eq .Section "private") (partial "menu-private.html" .) "" }}
+    {{ else }}
+      {{ partial "menu.html" . }}
+    {{ end }}
 
     {{ partial "menu-top.html" . }}
 
@@ -57,17 +56,11 @@
               {{if and (not .IsHome) ( gt (len .Content) 80)}}
               <div>
                 <div id="top-bar">
+                {{ partial "pdf-link.html" . }}
                 {{ if and (or .IsPage .IsSection) .Site.Params.editURL }}
                   {{ $File := .File }}
                   {{ $Site := .Site }}
-                  {{with $File.Path }}
-                  <div id="top-github-link">
-                    <a class="github-link" title='{{T "Edit-this-page"}}' href="{{ $Site.Params.editURL }}{{ replace $File.Dir "\\" "/" }}{{ $File.LogicalName }}" target="blank">
-                      <i class="fas fa-code-branch"></i>
-                      <span id="top-github-link-text">{{T "Edit-this-page"}}</span>
-                    </a>
-                  </div>
-                  {{ end }}
+                  {{ partial "github-link.html" . }}
                 {{ end }}
                 {{$toc := (not .Params.disableToc) }}
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -103,7 +96,7 @@
         <div id="body-inner">
           {{ if .Content }}
           {{if and (not .IsHome) (gt (len .Content) 180) (not .Params.notitle)}}
-            <h1>{{.Title}}</h1>
+            <h1>{{.Title}} {{ partial "tech-logo.html" . }} </h1>
           {{end}}
           {{end}}
 

@@ -1,0 +1,112 @@
+
+.tldr {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    //background-color: $active_background_colour;
+    background-clip: border-box;
+    border: 1px solid $active_background_colour;
+    border-radius: 10px;
+}
+.tldr-header:first-child {
+    border-radius: 10px 10px 0 0;
+}
+.tldr-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: $menu_background_colour;
+    color: white;
+    border-bottom: 0px solid rgba(0,0,0,.125);
+}
+.tldr-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    font-weight: bold;
+}
+// div#tldr {
+//     margin: 2rem 0;
+//     position: relative;
+// }
+// div#tldr p {
+//     padding: 15px;
+//     display: block;
+//     font-size: 1rem;
+//     margin-top: 0rem;
+//     margin-bottom: 0rem;
+//     color: #666;
+// }
+// div#tldr p:first-child:before {
+//     position: absolute;
+//     top: 2px;
+//     color: #fff;
+//     font-family: "Font Awesome 5 Free";
+//     font-weight: 900;
+//     content: "\f06a";
+//     left: 10px;
+// }
+// div#tldr p:first-child:after {
+//     position: absolute;
+//     top: 2px;
+//     color: #fff;
+//     left: 2rem;
+// }
+// div#tldr p {
+//     // border-top: 30px solid #F0B37E;
+//     // background: #FFF2DB;
+//     border-top: 30px solid $menu_background_colour;
+//     background: $active_background_colour;
+// }
+// div#tldr p:first-child:after {
+//     content: 'Summary';
+// }
+
+// div#tldr {
+//     margin: 2rem 0;
+//     position: relative;
+//     border-radius: 10px;
+
+
+// }
+// div#tldr {
+//     padding: 15px;
+//     display: block;
+//     font-size: 1rem;
+//     margin-top: 0rem;
+//     margin-bottom: 0rem;
+//     color: #666;
+// }
+// div#tldr p:first-child:before {
+//     position: absolute;
+//     top: 2px;
+//     color: #fff;
+//     font-family: "Font Awesome 5 Free";
+//     font-weight: 900;
+//     content: "\f06a";
+//     left: 10px;
+// }
+// div#tldr p:first-child:after {
+//     position: absolute;
+//     top: 2px;
+//     color: #fff;
+//     left: 2rem;
+// }
+// div#tldr {
+//     // border-top: 30px solid #F0B37E;
+//     // background: #FFF2DB;
+//     border-top: 30px solid $menu_background_colour;
+//     background: $active_background_colour;
+// }
+// div#tldr p:first-child:after {
+//     content: 'Summary';
+// }
+
+
