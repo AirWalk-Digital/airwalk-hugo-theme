@@ -46,6 +46,7 @@ body {
     background: #fff;
     color: #777;
     // margin-top: 0px;
+    overflow-x: hidden;
 }
 body #chapter h1 {
     font-size: 3.5rem;
@@ -201,7 +202,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
 }
 #body .padding {
     padding: 3rem 6rem;
-    padding-top: 65px;
+    padding-top: 50px;
 }
 @media only all and (max-width: 59.938em) {
     #body .padding {
@@ -229,7 +230,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
 
 #body-inner {
     position: relative;
-    margin-top: 50px;
+    // margin-top: 50px;
 }
 #body .nav {
     position: fixed;
@@ -389,6 +390,11 @@ blockquote cite {
     color: #666;
     font-size: 1.2rem;
 }
+
+#gitinfo {
+    margin-top: 25px;
+   }
+   
 // div.notices {
 //     margin: 2rem 0;
 //     position: relative;
@@ -898,8 +904,8 @@ td {
 }
 #top-bar {
     background: #F6F6F6;
-    border-radius: 2px;
-    padding: 0 1rem;
+    // border-radius: 2px;
+    padding-left: 10px;
     height: 0;
     min-height: 3rem;
 }
@@ -910,15 +916,25 @@ td {
 #top-bar-sticky-wrapper {
     position: fixed;
     top: 70;
-    width: 60%;
+    // width: 100%;
     z-index: 80;
+    right: 0px;
 }
+.links {
+    margin-left: 30px;
+   }
+   
+div.sticky-wrapper:nth-child(1) {
+    height: 44px;
+    left: 300px;
+   }   
 
 #top-github-link {
     position: relative;
     z-index: 1;
     float: right;
     display: block;
+    margin-right: 50px;
 }
 #body #breadcrumbs {
     height: auto;
