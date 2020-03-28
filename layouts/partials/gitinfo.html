@@ -1,0 +1,29 @@
+
+
+{{ $postgitinfo := (index $.Site.Data.githistory (printf "%s%s" "./" .File.Path) ) }}
+
+{{ if $postgitinfo }}
+
+<div id="gitinfo">
+    <table>
+        <tr>
+          <th>Change</th>
+          <th>Author</th> 
+          <th>Date</th>
+        </tr>
+{{ range $postgitinfo }}
+{{ $date := split .date " " }}
+{{ $pr := split .subject " " }}
+
+<tr>
+    <td>{{(index $pr 1)}} {{replace (index $pr 2) ":" ""}} </td>
+    <td>{{ .author }} </td>
+    <td>{{(index $date 0)}} {{(index $date 1)}} {{(index $date 2)}} {{(index $date 3)}}</td>
+  </tr>
+
+{{end}}
+
+</table>
+</div>
+
+{{ end }}

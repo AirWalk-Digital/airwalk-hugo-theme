@@ -1,7 +1,5 @@
 {{ partial "header.html" . }}
 
-
-
 {{ $both := split .RawContent "<!--more-->" }}
 {{ if gt (len $both) 1 }}
 <div class="tldr">
