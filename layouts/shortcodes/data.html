@@ -1,0 +1,35 @@
+{{/*
+{{< data "[dir/file]" "[single/multiple]" "[primary key]" >}}        
+*/}}
+
+{{ $arg := .Get 0 }}
+{{ $type := .Get 1 }}
+{{ $p_key := .Get 2 }}
+
+
+{{ $dataFile := index .Site.Data $arg }}
+{{ $.Scratch.Set "count" 0 }}
+{{ if eq $type "multiple"}}
+  {{ range $dataFile }}
+  <h3>{{ index . $p_key}}</h3>
+  <table>
+      {{ range $key, $val := . }}
+          <tr><td>{{ $key }}</td><td>{{$val}}</td></tr>
+      {{ end }}
+  </table>
+  {{ end }}
+{{ end }}
+
+{{ if eq $type "single"}}
+{{ $datapath := (split $arg ".")}}
+
+{{ $dataFile := index .Site.Data $datapath }}
+{{ range $dataFile }}
+  <h3>{{ index . $p_key}}</h3>
+  <table>
+      {{ range $key, $val := . }}
+          <tr><td>{{ $key }}</td><td>{{$val}}</td></tr>
+      {{ end }}
+  </table>
+  {{ end }}
+{{ end }}
