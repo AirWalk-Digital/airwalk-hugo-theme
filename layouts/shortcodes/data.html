@@ -1,37 +1,52 @@
 {{/*
-{{< data "[dir/file]" "[single/multiple]" "[primary key]" >}}        
+{{< data "[dir/file]" "[single/multiple]" "[primary key]" "[filterIn]" "[filterOut]">}}        
 */}}
 
 {{ $arg := .Get 0 }}
 {{ $type := .Get 1 }}
 {{ $p_key := .Get 2 }}
+{{ $filterIn := .Get 3}}
+{{ $filterOut := .Get 4}}
 
-{{ if eq $type "multiple"}}
-  {{ if isset .Site.Data $arg }}
-  {{ $dataFile := index .Site.Data $arg }}
-    {{ range $dataFile }}
-    <h3>{{ index . $p_key}}</h3>
-    <table>
-        {{ range $key, $val := . }}
-            <tr><td>{{ $key }}</td><td>{{$val}}</td></tr>
-        {{ end }}
-    </table>
-    {{ end }}
-  {{ end }}
-{{ end }}
 {{ if eq $type "single"}}
 
 {{ $datapath := (split $arg ".")}}
-
-{{ if isset .Site.Data $datapath }}
-  {{ $dataFile := index .Site.Data $datapath }}
-    {{ range $dataFile }}
-    <h3>{{ index . $p_key}}</h3>
-    <table>
-        {{ range $key, $val := . }}
-            <tr><td>{{ $key }}</td><td>{{$val}}</td></tr>
-        {{ end }}
-    </table>
+  
+  {{ if eq (len $datapath) 2 }}
+  <!-- this is a 2 level data structure -->
+    {{if isset .Site.Data (index $datapath 0) }}
+      {{if isset (index .Site.Data (index ($datapath) 0)) (index ($datapath) 1)}}
+        <!-- all the expected values exist -->
+        {{ $dataFile := index .Site.Data $datapath }}
+        {{ template "table" (dict "p_key" $p_key "dataFile" $dataFile "filterIn" $filterIn "filterOut" $filterOut) }}
+      {{ end }}
     {{ end }}
+
+
+  {{ else if eq (len $datapath) 1 }}
+    <!-- this is a single level data structure -->
+    {{if isset .Site.Data (index $datapath 0) }}
+      <!-- all the expected values exist -->
+      {{ $dataFile := index .Site.Data $datapath }}
+      {{ template "table" (dict "p_key" $p_key "dataFile" $dataFile "filterIn" $filterIn "filterOut" $filterOut) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ define "table" }}
+{{ $p_key := .p_key}}
+{{ $filterIn := .filterIn}}
+{{ $filterOut := .filterOut}}
+  {{ range .dataFile }}
+    <h3>{{ index . $p_key }}</h3>
+    <table>
+    {{ range $key, $val := . }}
+      {{ if or (in $filterIn $key) (eq $filterIn "") }}
+        {{ if not (in $filterOut $key) }}
+        <tr><td>{{ $key }}</td><td>{{$val}}</td></tr>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    </table>
   {{ end }}
 {{ end }}
