@@ -29,7 +29,9 @@
 <!-- Azure -->
 {{ if and (isset .Site.Data.compliance (.Page.Params.compliance | lower)) (isset (index .Site.Data.compliance (.Page.Params.compliance | lower)) "azure") }}
 <h3>Azure</h3>
-{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure")}}
+{{/* template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") */}}
+
+{{ template "technical_controls" dict "section" (index .Site.Data.compliance (.Page.Params.compliance | lower) "azure") "cloud" "azure" "params" $.Site.Params}}
 {{ end }}
 
 <!-- AWS -->
@@ -58,7 +60,27 @@
 
 {{ define "technical_controls" }}
 
-<table>
+{{ $assignment := "" }}
+{{ $controls := slice }}
+{{ $cloud := .cloud}}
+{{ $apiurl := ""}}
+
+
+{{ range $key, $value := .section }}
+{{ if eq $key "assignment_name" }}
+{{ $assignment = $value }}
+{{ end }}
+{{ if eq $key "controls" }}
+{{ $controls = $controls  | append $value }}
+{{ end }}
+{{ end }}
+{{ range $key, $value := .params }}
+{{ if eq $key "apiurl" }}
+{{ $apiurl = $value }}
+{{ end }}
+{{ end }}
+
+<table class='tData'> 
     <thead>
         <tr>
         <th>Control ID</th>
@@ -69,18 +91,85 @@
         </tr>
         </thead>
         <tbody>
-            {{ range .section }}
+            {{ range $controls }}
             <tr>
-                <td>{{.name}}</td>
-                <td>{{.service}}</td>
-                <td>{{.control}}</td>
-                <td></td>
-                <td></td>
+                <td class='assignment' style='display:none;'>{{$assignment}}</td>
+                <td class='cloud' style='display:none;'>{{ $cloud }}</td>
+                <td class='id' style='display:none;'>{{.id}}</td>
+                <td class='name'>{{.name}}</td>
+                <td class='service'>{{.service}}</td>
+                <td class='control'>{{.control}}</td>
+                <td class='applied'>Waiting</td>
+                <td class='issues'></td>
             </tr>
             {{ end }}
 
 </tbody>
 </table>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    $('.tData tr:gt(0)').each(function(){
 
+        var this_row = $(this);
+        var id_cell = this_row.find('.id');
+        var applied_cell = this_row.find('.applied');
+        var issues_cell = this_row.find('.issues');
+        var assigned_cell = this_row.find('.assignment');
+        var cloud_cell = this_row.find('.cloud');
+
+        var policy_id = id_cell[0].innerText;
+        var assignment = assigned_cell[0].innerText;
+        var cloud = cloud_cell[0].innerText;
+        var apiurl = "{{ $apiurl }}";
+
+        var params = {
+            provider_name: cloud,
+            assignment_name: assignment,
+            policy_id: policy_id
+        };
+
+        $.getJSON(apiurl, params, function(data){
+            if(data['noncompliant']!=0){
+                issues_cell.addClass('redBg')
+            }
+            else{
+                issues_cell.addClass('greenBg')
+            }
+            applied_cell.addClass('greenBg')
+            var total = data['noncompliant'] + data['compliant']
+            applied_cell.html(total);
+            issues_cell.html(data['noncompliant']);
+        })
+        .error(function(event, jqxhr, exception) {
+            if (event.status == 404) {
+                applied_cell.html('Unavailiable');
+
+            }
+            else{ 
+                applied_cell.html('Error '+ event.status);
+
+            }
+            applied_cell.addClass('greyBg') 
+            issues_cell.addClass('greyBg') 
+        });
+
+    })
+
+});
+
+</script> 
+<style>
+
+    .greenBg {
+        background: green;
+    }
+    .redBg {
+        background: red;
+    }
+    .greyBg {
+        background: grey;
+    }
+    
+    </style>
 {{end}}
 
