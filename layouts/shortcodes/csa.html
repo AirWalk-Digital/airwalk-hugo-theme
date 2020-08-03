@@ -108,56 +108,70 @@
 </table>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-    $('.tData tr:gt(0)').each(function(){
+    $.getJSON(window.location.origin+"/.auth/me")
+        .done(data => {
+            var token = data.access_token;
 
-        var this_row = $(this);
-        var id_cell = this_row.find('.id');
-        var applied_cell = this_row.find('.applied');
-        var issues_cell = this_row.find('.issues');
-        var assigned_cell = this_row.find('.assignment');
-        var cloud_cell = this_row.find('.cloud');
+            $('.tData tr:gt(0)').each(function () {
 
-        var policy_id = id_cell[0].innerText;
-        var assignment = assigned_cell[0].innerText;
-        var cloud = cloud_cell[0].innerText;
-        var apiurl = "{{ $apiurl }}";
+                var this_row = $(this);
+                var id_cell = this_row.find('.id');
+                var applied_cell = this_row.find('.applied');
+                var issues_cell = this_row.find('.issues');
+                var assigned_cell = this_row.find('.assignment');
+                var cloud_cell = this_row.find('.cloud');
 
-        var params = {
-            provider_name: cloud,
-            assignment_name: assignment,
-            policy_id: policy_id
-        };
+                var policy_id = id_cell[0].innerText;
+                var assignment = assigned_cell[0].innerText;
+                var cloud = cloud_cell[0].innerText;
+                var apiurl = "{{ $apiurl }}";
 
-        $.getJSON(apiurl, params, function(data){
-            if(data['noncompliant']!=0){
-                issues_cell.addClass('redBg')
-            }
-            else{
-                issues_cell.addClass('greenBg')
-            }
-            applied_cell.addClass('greenBg')
-            var total = data['noncompliant'] + data['compliant']
-            applied_cell.html(total);
-            issues_cell.html(data['noncompliant']);
+                var params = {
+                    provider_name: cloud,
+                    assignment_name: assignment,
+                    policy_id: policy_id
+                };
+
+                $.ajax({
+                   dataType: "json",
+                    url: apiurl,
+                    data: params,
+                    beforeSend: (request) => {
+                      request.setRequestHeader("Authorization", token)
+                    },
+                    success: data => {
+                        if (data['noncompliant'] != 0) {
+                            issues_cell.addClass('redBg')
+                        } else {
+                            issues_cell.addClass('greenBg')
+                        }
+                        applied_cell.addClass('greenBg')
+                        var total = data['noncompliant'] + data['compliant']
+                        applied_cell.html(total);
+                        issues_cell.html(data['noncompliant']);
+                    },
+                    error: err => {
+                                if (err.status == 404) {
+                                    applied_cell.html('Unavailiable');
+
+                                } else {
+                                    applied_cell.html('Error ' + err.status);
+
+                                }
+                                applied_cell.addClass('greyBg')
+                                issues_cell.addClass('greyBg')
+                    }
+                });
+
+            })
         })
-        .error(function(event, jqxhr, exception) {
-            if (event.status == 404) {
-                applied_cell.html('Unavailiable');
-
-            }
-            else{ 
-                applied_cell.html('Error '+ event.status);
-
-            }
-            applied_cell.addClass('greyBg') 
-            issues_cell.addClass('greyBg') 
-        });
-
-    })
+        .fail(e =>
+            console.log(e)
+        );
 
 });
 
-</script> 
+</script>
 <style>
 
     .greenBg {
