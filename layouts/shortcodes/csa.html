@@ -110,7 +110,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     $.getJSON(window.location.origin+"/.auth/me")
         .done(data => {
-            var token = data.access_token;
+            var token = data[0].access_token;
 
             $('.tData tr:gt(0)').each(function () {
 
